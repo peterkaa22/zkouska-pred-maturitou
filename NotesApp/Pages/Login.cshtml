@@ -1,0 +1,47 @@
+@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Přihlášení";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Přihlášení</h3>
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            @Model.ErrorMessage
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Uživatelské jméno</label>
+                            <input type="text" class="form-control" id="username" 
+                                   asp-for="Username" placeholder="Zadejte své uživatelské jméno" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Heslo</label>
+                            <input type="password" class="form-control" id="password" 
+                                   asp-for="Password" placeholder="Zadejte své heslo" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Přihlásit se</button>
+                    </form>
+
+                    <hr>
+                    <p class="text-center">
+                        Nemáte účet? <a href="/Register">Zaregistrujte se</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

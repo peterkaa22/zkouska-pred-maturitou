@@ -12,8 +12,16 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
+        // Pokud je uživatel přihlášen, přesměr na seznam poznámek
+        var userId = HttpContext.Session.GetInt32("UserId");
+        if (userId.HasValue)
+        {
+            return RedirectToPage("/Notes/List");
+        }
 
+        // Pokud není přihlášen, přesměr na login
+        return RedirectToPage("/Login");
     }
 }
