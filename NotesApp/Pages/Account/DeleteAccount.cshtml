@@ -1,0 +1,43 @@
+@page
+@model NotesApp.Pages.Account.DeleteAccountModel
+@{
+    ViewData["Title"] = "Zrušení účtu";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0">Zrušení účtu</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Pozor:</strong> Tato akce je nevratná. S účtem se smažou i všechny vaše poznámky.
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @Model.ErrorMessage
+                        </div>
+                    }
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Potvrďte heslo</label>
+                            <input asp-for="Password" type="password" class="form-control" autocomplete="current-password" required />
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Opravdu chcete trvale zrušit účet včetně všech poznámek?');">
+                                Trvale zrušit účet
+                            </button>
+                            <a asp-page="/Notes/List" class="btn btn-outline-secondary">Zpět</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
