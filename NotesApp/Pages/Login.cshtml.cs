@@ -24,13 +24,15 @@ public class LoginModel : PageModel
 
     public string ErrorMessage { get; set; } = string.Empty;
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
         // Pokud je uživatel již přihlášen, přesměrujeme ho
         if (HttpContext.Session.GetInt32("UserId").HasValue)
         {
-            RedirectToPage("/Notes/List");
+            return RedirectToPage("/Notes/List");
         }
+
+        return Page();
     }
 
     public IActionResult OnPost()

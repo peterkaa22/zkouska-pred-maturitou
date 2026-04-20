@@ -29,17 +29,18 @@ public class ListModel : PageModel
         }
 
         // Načíst poznámky uživatele
-        IOrderedQueryable<Note> query = _context.Notes
-            .Where(n => n.UserId == userId.Value)
-            .OrderByDescending(n => n.CreatedAt); // Nejnovější první
+        IQueryable<Note> query = _context.Notes
+            .Where(n => n.UserId == userId.Value);
 
         // Filtr - pouze důležité
         if (ShowOnlyImportant)
         {
-            query = (IOrderedQueryable<Note>)query.Where(n => n.IsImportant);
+            query = query.Where(n => n.IsImportant);
         }
 
-        Notes = query.ToList();
+        Notes = query
+            .OrderByDescending(n => n.CreatedAt) // Nejnovější první
+            .ToList();
         return Page();
     }
 

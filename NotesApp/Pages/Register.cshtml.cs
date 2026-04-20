@@ -28,13 +28,15 @@ public class RegisterModel : PageModel
 
     public string ErrorMessage { get; set; } = string.Empty;
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
         // Pokud je uživatel již přihlášen, přesměrujeme ho
         if (HttpContext.Session.GetInt32("UserId").HasValue)
         {
-            RedirectToPage("/Index");
+            return RedirectToPage("/Notes/List");
         }
+
+        return Page();
     }
 
     public async Task<IActionResult> OnPostAsync()
